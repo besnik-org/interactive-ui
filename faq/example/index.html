@@ -1,0 +1,228 @@
+<style>
+    .question{
+        font-size: 18px;
+        cursor:pointer
+    }
+
+    .faq-container[answer_control_by="class"] .answer{
+      display:none;
+    }
+
+    .answer.active{
+        display: block !important;
+    }
+</style>
+
+<h1>Example Onw with Default Options</h1>
+
+<h2>1.</h2>
+<div class="faq-container">
+    <div class="question">
+        What is Lorem Ipsum?
+        <div class="answer">
+            <b>Lorem Ipsum</b> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since
+            the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but
+            also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
+            containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        </div>
+    </div>
+    <div class="question">
+        Where does it come from?
+        <div class="answer">
+            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over
+            2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words,
+            consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.
+        </div>
+    </div>
+</div>
+
+
+<h2>2.</h2>
+<div class="faq-container">
+    <div class="question">
+        What is Lorem Ipsum?
+    </div>
+    <div class="answer">
+        <b>Lorem Ipsum</b> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the
+        1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also
+        the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+        Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    </div>
+    <div class="question">
+        Where does it come from?
+    </div>
+    <div class="answer">
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000
+        years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from
+        a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.
+    </div>
+</div>
+
+
+
+<h1>Example Onw with Custom Options</h1>
+
+<h2>1.</h2>
+<div class="faq-container" slide_speed="500" close_others="true" answer_control_by="class">
+    <div class="question">
+        What is Lorem Ipsum?
+    </div>
+    <div class="answer">
+        <b>Lorem Ipsum</b> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the
+        1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also
+        the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+        Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    </div>
+    <div class="question">
+        Where does it come from?
+    </div>
+    <div class="answer">
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000
+        years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from
+        a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.
+    </div>
+</div>
+
+
+
+<h2>2.</h2>
+<div class="faq-container" slide_speed="500" close_others="false" answer_control_by="class">
+    <div class="question">
+        What is Lorem Ipsum?
+    </div>
+    <div class="answer">
+        <b>Lorem Ipsum</b> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the
+        1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also
+        the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+        Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    </div>
+    <div class="question">
+        Where does it come from?
+    </div>
+    <div class="answer">
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000
+        years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from
+        a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.
+    </div>
+</div>
+
+
+<script>
+    /**
+     * @author AL EMRAN
+     * @author_email emrancu1@gmail.com
+     * @company Besnik.
+     * @started at 6am 8th December 2022.
+     */
+
+    (function () {
+
+        /**
+         * hide FAQ's all answers without clicked question's answer
+         * @param questions
+         * @param avoidableIndex
+         * @param faqAnswerControlBy
+         */
+        function hideOthersAnswer(questions, avoidableIndex, faqAnswerControlBy) {
+            questions.forEach((question, i) => {
+                if (i !== avoidableIndex) {
+                    let answerArea = selectAnswerForToggle(question);
+
+                    if (faqAnswerControlBy === 'class') {
+                        answerArea?.classList.remove('active')
+                    } else {
+                        answerArea.style.height = '0px'
+                    }
+                }
+            })
+        }
+
+        /**
+         * select answer element of clicked question. Answer may place inside question element or after question element.
+         * @param question
+         * @returns {null|Element|*}
+         */
+        function selectAnswerForToggle(question) {
+
+            let answerFromInside = question.querySelector('.answer');
+            if (answerFromInside) {
+                return answerFromInside;
+            }
+
+            let answerFromNextElement = question.nextElementSibling;
+            if (answerFromNextElement && answerFromNextElement.matches('.answer')) {
+
+                return answerFromNextElement
+            }
+
+            return null;
+        }
+
+        /** select all faq container **/
+        let faqContainers = document.querySelectorAll('.faq-container');
+
+        if (faqContainers.length) {
+
+            let defaultFaqOptions = {
+                slide_speed: 300, // expected value  numeric miliseconds
+                close_others: true,  // expected value 'true', 'false'
+                answer_control_by: 'style'  // expected value 'class', 'style'
+            }
+
+            faqContainers.forEach(faqContainer => {
+
+                let faqAnswerSlideSpeed = faqContainer.hasAttribute('slide_speed') ? parseInt(faqContainer.getAttribute('slide_speed')) : defaultFaqOptions.slide_speed;
+
+                let faqCloseOtherAnswer = faqContainer.hasAttribute('close_others') ? faqContainer.getAttribute('close_others') == 'true' : defaultFaqOptions.close_others;
+
+                let faqAnswerControlBy = faqContainer.hasAttribute('answer_control_by') ? faqContainer.getAttribute('answer_control_by') : defaultFaqOptions.answer_control_by;
+
+                let questions = faqContainer.querySelectorAll('.question');
+
+                questions.forEach((question, i) => {
+
+                    let answerArea = selectAnswerForToggle(question);
+
+                    let answerAreaHeight = answerArea.getBoundingClientRect().height;
+
+                    /**
+                     * add some style for slide-up & down transition when answerControlBy value is 'style' (default).
+                     */
+                    if (faqAnswerControlBy === 'style') {
+                        answerArea.style.cssText = `
+                    overflow: hidden;
+                    transition: height ${faqAnswerSlideSpeed}ms ease-in;
+                  `;
+                        answerArea.style.height = '0px'
+                    }
+
+                    question.addEventListener('click', function () {
+                        if (faqAnswerControlBy === 'class') {
+                            answerArea.classList.toggle('active')
+                        }
+
+                        if (faqAnswerControlBy === 'style') {
+
+                            if (answerArea.style.height === '0px') {
+                                answerArea.style.height = answerAreaHeight + 'px'
+                            } else {
+                                answerArea.style.height = '0px'
+                            }
+
+                        }
+
+                        if (faqCloseOtherAnswer) {
+                            hideOthersAnswer(questions, i, faqAnswerControlBy)
+                        }
+
+                    })
+
+                })
+
+            })
+
+
+        }
+
+    })();
+</script>
