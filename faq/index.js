@@ -18,11 +18,11 @@
             if (i !== avoidableIndex) {
                 let answerArea = selectAnswerForToggle(question);
 
-                if (faqAnswerControlBy === 'class') {
-                    answerArea?.classList.remove('active')
-                } else {
+                if (faqAnswerControlBy === 'style') {
                     answerArea.style.height = '0px'
                 }
+
+                answerArea?.classList.remove('active')
             }
         })
     }
@@ -87,9 +87,8 @@
                 }
 
                 question.addEventListener('click', function () {
-                    if (faqAnswerControlBy === 'class') {
-                        answerArea.classList.toggle('active')
-                    }
+
+                    answerArea.classList.toggle('active')
 
                     if (faqAnswerControlBy === 'style') {
 
