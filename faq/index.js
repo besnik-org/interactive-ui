@@ -23,6 +23,7 @@
                 }
 
                 answerArea?.classList.remove('active')
+                question?.classList.remove('active')
             }
         })
     }
@@ -89,6 +90,7 @@
                 question.addEventListener('click', function () {
 
                     answerArea.classList.toggle('active')
+                    question.classList.toggle('active')
 
                     if (faqAnswerControlBy === 'style') {
 
