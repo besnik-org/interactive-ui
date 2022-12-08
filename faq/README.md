@@ -19,29 +19,30 @@
 
 ```
 /**
-* @author AL EMRAN
-* @author_email emrancu1@gmail.com
-* @company Besnik.
-* @started at 6am 8th December 2022.
-*/
+ * @author AL EMRAN
+ * @author_email emrancu1@gmail.com
+ * @company Besnik.
+ * @started at 6am 8th December 2022.
+ */
+
 (function () {
+
     /**
      * hide FAQ's all answers without clicked question's answer
      * @param questions
      * @param avoidableIndex
      * @param faqAnswerControlBy
-     */ 
-
+     */
     function hideOthersAnswer(questions, avoidableIndex, faqAnswerControlBy) {
         questions.forEach((question, i) => {
             if (i !== avoidableIndex) {
                 let answerArea = selectAnswerForToggle(question);
 
-                if (faqAnswerControlBy === 'class') {
-                    answerArea?.classList.remove('active')
-                } else {
+                if (faqAnswerControlBy === 'style') {
                     answerArea.style.height = '0px'
                 }
+
+                answerArea?.classList.remove('active')
             }
         })
     }
@@ -106,9 +107,8 @@
                 }
 
                 question.addEventListener('click', function () {
-                    if (faqAnswerControlBy === 'class') {
-                        answerArea.classList.toggle('active')
-                    }
+
+                    answerArea.classList.toggle('active')
 
                     if (faqAnswerControlBy === 'style') {
 
@@ -133,5 +133,6 @@
 
     }
 
-})() 
+})();
+
 ```
