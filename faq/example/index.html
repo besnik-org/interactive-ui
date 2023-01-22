@@ -16,7 +16,7 @@
 <h1>Example Onw with Default Options</h1>
 
 <h2>1.</h2>
-<div class="faq-container">
+<div class="faq-container" active_all="true">
     <div class="question">
         What is Lorem Ipsum?
         <div class="answer">
@@ -165,18 +165,20 @@
         if (faqContainers.length) {
 
             let defaultFaqOptions = {
-                slide_speed: 300, // expected value  numeric miliseconds
+                slide_speed: 300, // expected value  numeric milliseconds
                 close_others: true,  // expected value 'true', 'false'
-                answer_control_by: 'style'  // expected value 'class', 'style'
+                answer_control_by: 'style', // expected value 'class', 'style'
+                active_all: false
             }
 
             faqContainers.forEach(faqContainer => {
 
                 let faqAnswerSlideSpeed = faqContainer.hasAttribute('slide_speed') ? parseInt(faqContainer.getAttribute('slide_speed')) : defaultFaqOptions.slide_speed;
 
-                let faqCloseOtherAnswer = faqContainer.hasAttribute('close_others') ? faqContainer.getAttribute('close_others') == 'true' : defaultFaqOptions.close_others;
+                let faqCloseOtherAnswer = faqContainer.hasAttribute('close_others') ? faqContainer.getAttribute('close_others') === 'true' : defaultFaqOptions.close_others;
 
                 let faqAnswerControlBy = faqContainer.hasAttribute('answer_control_by') ? faqContainer.getAttribute('answer_control_by') : defaultFaqOptions.answer_control_by;
+                let faqActiveAll = faqContainer.hasAttribute('active_all') && faqContainer.getAttribute('active_all') === 'true' ? true : defaultFaqOptions.active_all;
 
                 let questions = faqContainer.querySelectorAll('.question');
 
@@ -185,6 +187,8 @@
                     let answerArea = selectAnswerForToggle(question);
 
                     let answerAreaHeight = answerArea.getBoundingClientRect().height;
+
+                    let defaultActive =  question.hasAttribute('data-active') || question.classList.contains('active');
 
                     /**
                      * add some style for slide-up & down transition when answerControlBy value is 'style' (default).
@@ -197,7 +201,18 @@
                         answerArea.style.height = '0px'
                     }
 
+                    if(faqActiveAll || defaultActive){
+                        answerArea.classList.add('active')
+                        question.classList.add('active')
+
+                        if (faqAnswerControlBy === 'style') {
+                            answerArea.style.height = answerAreaHeight + 'px'
+                        }
+                    }
+
                     question.addEventListener('click', function () {
+
+                        let isActive =  answerArea.classList.contains('active');
 
                         answerArea.classList.toggle('active')
                         question.classList.toggle('active')
@@ -205,14 +220,15 @@
                         if (faqAnswerControlBy === 'style') {
 
                             if (answerArea.style.height === '0px') {
+                                isActive =  true
                                 answerArea.style.height = answerAreaHeight + 'px'
                             } else {
+                                isActive =  false
                                 answerArea.style.height = '0px'
                             }
-
                         }
 
-                        if (faqCloseOtherAnswer) {
+                        if (faqCloseOtherAnswer && isActive) {
                             hideOthersAnswer(questions, i, faqAnswerControlBy)
                         }
 
@@ -222,8 +238,8 @@
 
             })
 
-
         }
 
     })();
+
 </script>

@@ -57,7 +57,8 @@
         let defaultFaqOptions = {
             slide_speed: 300, // expected value  numeric milliseconds
             close_others: true,  // expected value 'true', 'false'
-            answer_control_by: 'style'  // expected value 'class', 'style'
+            answer_control_by: 'style', // expected value 'class', 'style'
+            active_all: false
         }
 
         faqContainers.forEach(faqContainer => {
@@ -67,6 +68,7 @@
             let faqCloseOtherAnswer = faqContainer.hasAttribute('close_others') ? faqContainer.getAttribute('close_others') == 'true' : defaultFaqOptions.close_others;
 
             let faqAnswerControlBy = faqContainer.hasAttribute('answer_control_by') ? faqContainer.getAttribute('answer_control_by') : defaultFaqOptions.answer_control_by;
+            let faqActiveAll = faqContainer.hasAttribute('active_all') && faqContainer.getAttribute('active_all') === 'true' ? true : defaultFaqOptions.active_all;
 
             let questions = faqContainer.querySelectorAll('.question');
 
@@ -75,6 +77,8 @@
                 let answerArea = selectAnswerForToggle(question);
 
                 let answerAreaHeight = answerArea.getBoundingClientRect().height;
+
+                let defaultActive =  question.hasAttribute('data-active') || question.classList.contains('active');
 
                 /**
                  * add some style for slide-up & down transition when answerControlBy value is 'style' (default).
@@ -85,6 +89,15 @@
                     transition: height ${faqAnswerSlideSpeed}ms ease-in;
                   `;
                     answerArea.style.height = '0px'
+                }
+
+                if(faqActiveAll || defaultActive){
+                    answerArea.classList.add('active')
+                    question.classList.add('active')
+
+                    if (faqAnswerControlBy === 'style') {
+                       answerArea.style.height = answerAreaHeight + 'px'
+                    }
                 }
 
                 question.addEventListener('click', function () {
