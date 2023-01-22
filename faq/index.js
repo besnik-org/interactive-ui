@@ -55,7 +55,7 @@
     if (faqContainers.length) {
 
         let defaultFaqOptions = {
-            slide_speed: 300, // expected value  numeric miliseconds
+            slide_speed: 300, // expected value  numeric milliseconds
             close_others: true,  // expected value 'true', 'false'
             answer_control_by: 'style'  // expected value 'class', 'style'
         }
